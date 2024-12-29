@@ -1,4 +1,35 @@
+import { Link, useLocation } from "react-router-dom";
+import { cn } from "../../lib/tailwind";
+import React, { useState } from "react";
+
+const MenuItems = [
+  { title: "Menu", href: "/menu" },
+  { title: "Custom Order", href: "/custom-order" },
+  { title: "My Account", href: "/account" },
+];
+
 export default function Navbar() {
+  const location = useLocation();
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  const closeDropdown = () => setDropdownOpen(false);
+
+  const menuItemsBlock = React.useMemo(() => {
+    return MenuItems.map((item, index) => (
+      <li
+        key={index}
+        className={cn(
+          "rounded-lg",
+          location.pathname === item.href && "bg-slate-700"
+        )}
+        onClick={closeDropdown}
+      >
+        <Link to={item.href}>{item.title}</Link>
+      </li>
+    ));
+  }, [location.pathname]);
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -7,6 +38,7 @@ export default function Navbar() {
             tabIndex={0}
             className="btn btn-ghost lg:hidden"
             aria-label="Toggle navigation menu"
+            onClick={toggleDropdown}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -23,43 +55,21 @@ export default function Navbar() {
               />
             </svg>
           </button>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a>Order</a>
-              <ul className="p-2">
-                <li>
-                  <a>Existing Pizza</a>
-                </li>
-                <li>
-                  <a>Custom Pizza</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a>My Account</a>
-            </li>
-            <li>
-              <a>Balance</a>
-            </li>
-          </ul>
+          {isDropdownOpen && (
+            <ul
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              onBlur={closeDropdown}
+            >
+              {menuItemsBlock}
+            </ul>
+          )}
         </div>
-        <a className="btn btn-ghost text-xl">🍕 Pizza Shop</a>
+        <Link className="btn btn-ghost text-xl" to="/menu">
+          🍕 Pizza Shop
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal">
-        <li>
-            <a>Menu</a>
-          </li>
-          <li>
-            <a>Custom Order</a>
-          </li>
-          <li>
-            <a>My Account</a>
-          </li>
-        </ul>
+        <ul className="menu menu-horizontal">{menuItemsBlock}</ul>
       </div>
       <div className="navbar-end">
         <span className="btn btn-ghost">Balance 0.00 $</span>

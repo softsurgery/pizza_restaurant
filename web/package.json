@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "clsx": "^2.1.1",
     "cra-template": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1"
+    "react-router-dom": "^7.1.1",
+    "react-scripts": "5.0.1",
+    "tailwind-merge": "^2.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,6 +37,7 @@
     ]
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.15",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.23",
     "postcss": "^8.4.49",
