@@ -1,4 +1,4 @@
-import { cn } from "../lib/tailwind";
+import { cn } from "../../lib/tailwind";
 import PizzaCard from "./PizzaCard";
 
 export default function PizzaMenu({ className }) {

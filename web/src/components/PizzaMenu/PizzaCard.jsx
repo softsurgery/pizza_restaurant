@@ -1,4 +1,4 @@
-import { cn } from "../lib/tailwind";
+import { cn } from "../../lib/tailwind";
 
 export default function PizzaCard({ className }) {
   return (
