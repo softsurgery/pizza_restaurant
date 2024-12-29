@@ -1,6 +1,7 @@
 import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PizzaMenu from "./components/PizzaMenu";
+import PizzaMenu from "./components/PizzaMenu/PizzaMenu";
+import CustomOrder from "./pages/CustomOrder";
 
 const router = createBrowserRouter([
   {
@@ -8,8 +9,8 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       // Add your routes here
-      { path: "/menu", element: <PizzaMenu/> },
-      { path: "/test2", element: <div> Test 2 </div> },
+      { path: "/menu", element: <PizzaMenu /> },
+      { path: "/custom-order", element: <CustomOrder /> },
       { path: "*", element: <div> Not Found</div> },
     ],
   },
