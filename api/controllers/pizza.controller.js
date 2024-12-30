@@ -23,8 +23,8 @@ const getPizzaById = async (req, res) => {
 
 const createPizza = async (req, res) => {
   try {
-    const { name, size, price, available } = req.body;
-    const pizza = new Pizza({ name, size, price, available });
+    const { name, description, image, size, price, available } = req.body;
+    const pizza = new Pizza({ name, description, image, size, price, available });
     const savedPizza = await pizza.save();
     res.status(201).json(savedPizza);
   } catch (err) {

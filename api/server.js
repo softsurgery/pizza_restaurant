@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 require('dotenv').config();
 
 mongoose.Promise = global.Promise;
@@ -14,6 +15,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => {
 
 const app = express();
 
+app.use(cors()); 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -21,7 +23,6 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
     res.json({"message": "Server is running :D"});
 });
-
 require('./routes/user.routes.js')(app);
 require('./routes/note.routes.js')(app);
 require('./routes/pizza.routes.js')(app);
