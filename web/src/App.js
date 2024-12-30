@@ -2,7 +2,7 @@ import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
-import Signup from "./components/common/Signup";
+import Auth from "./components/common/Auth";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <Signup />,
+    element: <Auth />,
   },
 ]);
 
