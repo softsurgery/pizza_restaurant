@@ -1,6 +1,6 @@
 import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import PizzaMenu from "./components/PizzaMenu/PizzaMenu";
+import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
 
 const router = createBrowserRouter([

@@ -1,37 +1,22 @@
+import React from "react";
+import { observer } from "mobx-react-lite";
 import { cn } from "../../lib/tailwind";
 import PizzaCard from "./PizzaCard";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import pizzaModel from "../../models/PizzaModel";
+import { pconsole } from "../../lib/utils";
 
-export default function PizzaMenu({ className }) {
-  const [pizzas, setPizzas] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchPizzas = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/pizzas");
-        setPizzas(response.data);
-        console.log(response.data[0].available);
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
-      }
-    };
-
-    fetchPizzas();
+export const PizzaMenu = observer(({ className }) => {
+  React.useEffect(() => {
+    pizzaModel.fetchPizzas();
   }, []);
 
-  if (loading) {
+  if (pizzaModel.loading) {
     return <p>Loading...</p>;
   }
 
-  if (error) {
-    return <p className="text-red-500">Error: {error}</p>;
+  if (pizzaModel.error) {
+    return <p className="text-red-500">Error: {pizzaModel.error}</p>;
   }
-
   return (
     <div>
       <div className="prose border-b max-w-full mb-5">
@@ -50,19 +35,19 @@ export default function PizzaMenu({ className }) {
           className
         )}
       >
-        {pizzas.map((pizza) => (
+        {pizzaModel.pizzas.length !== 0 ? pizzaModel.pizzas.map((pizza) => (
           <PizzaCard
             key={pizza._id}
             className={"mx-auto"}
             name={pizza.name}
             description={pizza.description}
             imageUrl={pizza.image}
-            size={pizza.size} 
-            price={pizza.price} 
-            available={pizza.available} 
+            size={pizza.size}
+            price={pizza.price}
+            available={pizza.available}
           />
-        ))}
+        )) : <h1>No Pizza Found</h1>}
       </div>
     </div>
   );
-}
+});
