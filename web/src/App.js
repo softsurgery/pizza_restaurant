@@ -2,6 +2,7 @@ import Layout from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
+import Signup from "./components/common/Signup";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       { path: "/custom-order", element: <CustomOrder /> },
       { path: "*", element: <div> Not Found</div> },
     ],
+  },
+  {
+    path: "/auth",
+    element: <Signup />,
   },
 ]);
 
