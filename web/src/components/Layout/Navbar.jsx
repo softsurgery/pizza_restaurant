@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { cn } from "../../lib/tailwind";
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
+import cartModel from "../../models/CartModel";
 
 const MenuItems = [
   { title: "Menu", href: "/menu" },
@@ -8,7 +10,7 @@ const MenuItems = [
   { title: "My Account", href: "/account" },
 ];
 
-export default function Navbar() {
+export const Navbar = observer(() => {
   const location = useLocation();
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
@@ -31,7 +33,7 @@ export default function Navbar() {
   }, [location.pathname]);
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 py-2">
       <div className="navbar-start">
         <div className="dropdown">
           <button
@@ -71,12 +73,19 @@ export default function Navbar() {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal">{menuItemsBlock}</ul>
       </div>
-      <div className="navbar-end">
-        <Link className="btn btn-ghost text-base" to="/basket">
-          🛒 Basket
+
+      <div className="navbar-end gap-4">
+        <Link className="indicator cursor-pointer text-lg" to="/basket">
+          {cartModel.getCount !== 0 && (
+            <span className="indicator-item indicator-end badge badge-primary text-xs w-5 h-4 text-white">
+              {cartModel.getCount}
+            </span>
+          )}
+          🛒
         </Link>
+
         <span className="btn btn-ghost text-base">Balance 0.00 $</span>
       </div>
     </div>
   );
-}
+});

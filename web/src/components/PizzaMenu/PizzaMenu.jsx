@@ -3,7 +3,6 @@ import { observer } from "mobx-react-lite";
 import { cn } from "../../lib/tailwind";
 import PizzaCard from "./PizzaCard";
 import pizzaModel from "../../models/PizzaModel";
-import { pconsole } from "../../lib/utils";
 
 export const PizzaMenu = observer(({ className }) => {
   React.useEffect(() => {
