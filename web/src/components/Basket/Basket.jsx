@@ -24,64 +24,71 @@ const Basket = observer(() => {
           </tr>
         </thead>
         <tbody>
-          {cartModel.pizzas.map((p) => (
-            <tr key={p.id}>
-              {/* Checkbox */}
-              <td>
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </td>
-              {/* Image */}
-              <td>
-                <div className="flex items-center gap-3">
-                  <div className="avatar">
-                    <div className="mask mask-squircle h-12 w-12">
-                      <img src={p.image} alt="Avatar Tailwind CSS Component" />
+          {cartModel.pizzas.map((p) => {
+            const unitPrice = p.size === "Small" ? p.priceOfSm : p.size === "Medium" ? p.priceOfMd : p.priceOfLg;
+            const totalPrice = unitPrice * p.quantity;
+            return (
+              <tr key={p.id}>
+                {/* Checkbox */}
+                <td>
+                  <label>
+                    <input type="checkbox" className="checkbox" />
+                  </label>
+                </td>
+                {/* Image */}
+                <td>
+                  <div className="flex items-center gap-3">
+                    <div className="avatar">
+                      <div className="mask mask-squircle h-12 w-12">
+                        <img
+                          src={p.image}
+                          alt="Avatar Tailwind CSS Component"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </td>
-              {/* Name */}
-              <td>{p.label}</td>
-              {/* Size */}
-              <td>{p.size}</td>
-              {/* Price */}
-              <td>{p.price} $</td>
-              {/* Quantity */}
-              <td className="flex gap-10 justify-center">
-                <button
-                  className="btn btn-outline"
-                  onClick={() => cartModel.decreasePizza(p.id)}
-                >
-                  -
-                </button>
-                <input
-                  disabled
-                  placeholder="0"
-                  className="input input-ghost w-24"
-                  value={p.quantity}
-                />
-                <button
-                  className="btn btn-outline"
-                  onClick={() => cartModel.increasePizza(p.id)}
-                >
-                  +
-                </button>
-              </td>
-               {/* Total Price */}
-               <td>{p.price * p.quantity} $</td>
-              {/* Action */}
-              <td>
-                <button
-                  className="btn btn-outline"
-                  onClick={() => cartModel.removePizza(p.id)}
-                >
-                  Remove
-                </button>
-              </td>
-            </tr>
-          ))}
+                </td>
+                {/* Name */}
+                <td>{p.label}</td>
+                {/* Size */}
+                <td>{p.size}</td>
+                {/* Price */}
+                <td>{unitPrice.toFixed(2)} $</td>
+                {/* Quantity */}
+                <td className="flex gap-10 justify-center">
+                  <button
+                    className="btn btn-outline"
+                    onClick={() => cartModel.decreasePizza(p.id)}
+                  >
+                    -
+                  </button>
+                  <input
+                    disabled
+                    placeholder="0"
+                    className="input input-ghost w-24 text-center"
+                    value={p.quantity}
+                  />
+                  <button
+                    className="btn btn-outline"
+                    onClick={() => cartModel.increasePizza(p.id)}
+                  >
+                    +
+                  </button>
+                </td>
+                {/* Total Price */}
+                <td>{totalPrice.toFixed(2)} $</td>
+                {/* Action */}
+                <td>
+                  <button
+                    className="btn btn-outline"
+                    onClick={() => cartModel.removePizza(p.id)}
+                  >
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
         {/* foot */}
       </table>
