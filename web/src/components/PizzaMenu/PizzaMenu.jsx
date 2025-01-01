@@ -38,12 +38,7 @@ export const PizzaMenu = observer(({ className }) => {
           <PizzaCard
             key={pizza._id}
             className={"mx-auto"}
-            name={pizza.name}
-            description={pizza.description}
-            imageUrl={pizza.image}
-            size={pizza.size}
-            price={pizza.price}
-            available={pizza.available}
+            pizza= {pizza}
           />
         )) : <h1>No Pizza Found</h1>}
       </div>

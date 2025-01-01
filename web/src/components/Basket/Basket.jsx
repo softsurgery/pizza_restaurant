@@ -17,13 +17,15 @@ const Basket = observer(() => {
             <th></th>
             <th>Label</th>
             <th>Size </th>
-            <th>Price</th>
+            <th>Unit Price</th>
+            <th className="text-center">Quantity</th>
+            <th>Total Price</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {cartModel.pizzas.map((p, index) => (
-            <tr key={index}>
+          {cartModel.pizzas.map((p) => (
+            <tr key={p.id}>
               {/* Checkbox */}
               <td>
                 <label>
@@ -35,33 +37,46 @@ const Basket = observer(() => {
                 <div className="flex items-center gap-3">
                   <div className="avatar">
                     <div className="mask mask-squircle h-12 w-12">
-                      <img
-                        src={p.imageUrl}
-                        alt="Avatar Tailwind CSS Component"
-                      />
+                      <img src={p.image} alt="Avatar Tailwind CSS Component" />
                     </div>
                   </div>
                 </div>
               </td>
               {/* Name */}
-              <td>{p.name}</td>
+              <td>{p.label}</td>
               {/* Size */}
               <td>{p.size}</td>
               {/* Price */}
               <td>{p.price} $</td>
               {/* Quantity */}
-              <td className="flex gap-10">
-                <button className="btn btn-outline" onClick={() => cartModel.removePizza(index)}>-</button>
+              <td className="flex gap-10 justify-center">
+                <button
+                  className="btn btn-outline"
+                  onClick={() => cartModel.decreasePizza(p.id)}
+                >
+                  -
+                </button>
                 <input
-                  type="text"
-                  placeholder="Type here"
+                  disabled
+                  placeholder="0"
                   className="input input-ghost w-24"
+                  value={p.quantity}
                 />
-                <button className="btn btn-outline" onClick={() => cartModel.removePizza(index)}>+</button>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => cartModel.increasePizza(p.id)}
+                >
+                  +
+                </button>
               </td>
+               {/* Total Price */}
+               <td>{p.price * p.quantity} $</td>
               {/* Action */}
               <td>
-                <button className="btn btn-outline" onClick={() => cartModel.removePizza(index)}>
+                <button
+                  className="btn btn-outline"
+                  onClick={() => cartModel.removePizza(p.id)}
+                >
                   Remove
                 </button>
               </td>
