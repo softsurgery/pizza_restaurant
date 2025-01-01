@@ -4,7 +4,6 @@ import cartModel from "../../models/CartModel";
 import toast from "react-hot-toast";
 
 const Basket = observer(() => {
-
   const handleRemoveFromCartClick = (pizza) => {
     cartModel.removePizza(pizza.id);
     toast.success(`Pizza ${pizza.label} (${pizza.size}) Removed successfully`, {
@@ -14,15 +13,18 @@ const Basket = observer(() => {
 
   return (
     <div className="overflow-x-auto">
+      <div className="prose border-b max-w-full mb-5">
+        <h1>🛒 Cart</h1>
+        <p className="mb-5">
+          The Cart is where you can view and manage the items you&apos;ve selected
+          for purchase. It provides a clear summary of your chosen products and
+          lets you make adjustments before checking out.
+        </p>
+      </div>
       <table className="table">
         {/* head */}
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
             <th></th>
             <th>Label</th>
             <th>Size </th>
@@ -43,21 +45,12 @@ const Basket = observer(() => {
             const totalPrice = unitPrice * p.quantity;
             return (
               <tr key={p.id}>
-                {/* Checkbox */}
-                <td>
-                  <label>
-                    <input type="checkbox" className="checkbox" />
-                  </label>
-                </td>
                 {/* Image */}
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
-                      <div className="mask mask-squircle h-12 w-12">
-                        <img
-                          src={p.image}
-                          alt="Avatar Tailwind CSS Component"
-                        />
+                      <div className="mask rounded-lg h-24 w-24">
+                        <img src={p.image} alt={p.label} />
                       </div>
                     </div>
                   </div>
@@ -69,25 +62,27 @@ const Basket = observer(() => {
                 {/* Price */}
                 <td>{unitPrice.toFixed(2)} $</td>
                 {/* Quantity */}
-                <td className="flex gap-10 justify-center">
-                  <button
-                    className="btn btn-outline"
-                    onClick={() => cartModel.decreasePizza(p.id)}
-                  >
-                    -
-                  </button>
-                  <input
-                    disabled
-                    placeholder="0"
-                    className="input input-ghost w-24 text-center"
-                    value={p.quantity}
-                  />
-                  <button
-                    className="btn btn-outline"
-                    onClick={() => cartModel.increasePizza(p.id)}
-                  >
-                    +
-                  </button>
+                <td>
+                  <div className="flex flex-row gap-5 justify-center">
+                    <button
+                      className="btn btn-outline"
+                      onClick={() => cartModel.decreasePizza(p.id)}
+                    >
+                      -
+                    </button>
+                    <input
+                      disabled
+                      placeholder="0"
+                      className="input input-ghost w-24 text-center"
+                      value={p.quantity}
+                    />
+                    <button
+                      className="btn btn-outline"
+                      onClick={() => cartModel.increasePizza(p.id)}
+                    >
+                      +
+                    </button>
+                  </div>
                 </td>
                 {/* Total Price */}
                 <td>{totalPrice.toFixed(2)} $</td>
