@@ -16,17 +16,30 @@ const PizzaSchema = new mongoose.Schema({
     required: true,  // Assuming images are stored in an external service like AWS S3
     match: /^https?:\/\/.+/,  // Validate the image URL format
   },
-  size: {
-    type: String,
-    enum: ['small', 'medium', 'large'], 
-    required: true,
-  },
-  price: {
+  priceOfSm: {
     type: Number,
     required: true,
     min: 0, 
   },
-  available: {
+  priceOfMd: {
+    type: Number,
+    required: true,
+    min: 0, 
+  },
+  priceOfLg: {
+    type: Number,
+    required: true,
+    min: 0, 
+  },
+  availableOfSm: {
+    type: Boolean,
+    default: true, 
+  },
+  availableOfMd: {
+    type: Boolean,
+    default: true, 
+  },
+  availableOfLg: {
     type: Boolean,
     default: true, 
   },
