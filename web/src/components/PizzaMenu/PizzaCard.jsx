@@ -1,10 +1,12 @@
+import toast from "react-hot-toast";
 import { cn } from "../../lib/tailwind";
 import cartModel from "../../models/CartModel";
+import { observer } from "mobx-react-lite";
 
-export default function PizzaCard({ className, pizza }) {
+export const PizzaCard = observer(({ className, pizza }) =>{
   const handleAddToCartClick = (size, quantity) => {
     cartModel.addPizza({
-      id: pizza._id,
+      id: pizza._id + size,
       label: pizza.name,
       image: pizza.image,
       priceOfSm: pizza.priceOfSm,
@@ -13,8 +15,11 @@ export default function PizzaCard({ className, pizza }) {
       quantity,
       size,
     });
+    toast.success(`Pizza ${pizza.name} added successfully`, {
+      className: "bg-slate-800 text-white",
+    });
   };
-  console.log(pizza);
+
   return (
     <div className={cn("card bg-gray-800 w-80 shadow-xl", className)}>
       <div className="card-body">
@@ -67,4 +72,4 @@ export default function PizzaCard({ className, pizza }) {
       </div>
     </div>
   );
-}
+})

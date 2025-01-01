@@ -1,8 +1,17 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import cartModel from "../../models/CartModel";
+import toast from "react-hot-toast";
 
 const Basket = observer(() => {
+
+  const handleRemoveFromCartClick = (pizza) => {
+    cartModel.removePizza(pizza.id);
+    toast.success(`Pizza ${pizza.label} (${pizza.size}) Removed successfully`, {
+      className: "bg-slate-800 text-white",
+    });
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -25,7 +34,12 @@ const Basket = observer(() => {
         </thead>
         <tbody>
           {cartModel.pizzas.map((p) => {
-            const unitPrice = p.size === "Small" ? p.priceOfSm : p.size === "Medium" ? p.priceOfMd : p.priceOfLg;
+            const unitPrice =
+              p.size === "Small"
+                ? p.priceOfSm
+                : p.size === "Medium"
+                ? p.priceOfMd
+                : p.priceOfLg;
             const totalPrice = unitPrice * p.quantity;
             return (
               <tr key={p.id}>
@@ -81,7 +95,7 @@ const Basket = observer(() => {
                 <td>
                   <button
                     className="btn btn-outline"
-                    onClick={() => cartModel.removePizza(p.id)}
+                    onClick={() => handleRemoveFromCartClick(p)}
                   >
                     Remove
                   </button>

@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { cn } from "../../lib/tailwind";
-import PizzaCard from "./PizzaCard";
+import { PizzaCard } from "./PizzaCard";
 import pizzaModel from "../../models/PizzaModel";
 
 export const PizzaMenu = observer(({ className }) => {
@@ -34,13 +34,13 @@ export const PizzaMenu = observer(({ className }) => {
           className
         )}
       >
-        {pizzaModel.pizzas.length !== 0 ? pizzaModel.pizzas.map((pizza) => (
-          <PizzaCard
-            key={pizza._id}
-            className={"mx-auto"}
-            pizza= {pizza}
-          />
-        )) : <h1>No Pizza Found</h1>}
+        {pizzaModel.pizzas.length !== 0 ? (
+          pizzaModel.pizzas.map((pizza) => (
+            <PizzaCard key={pizza._id} className={"mx-auto"} pizza={pizza} />
+          ))
+        ) : (
+          <h1>No Pizza Found</h1>
+        )}
       </div>
     </div>
   );
