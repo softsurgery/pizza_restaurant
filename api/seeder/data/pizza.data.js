@@ -49,7 +49,7 @@ const pizzas = [
   {
     name: "Hawaiian",
     description: "Topped with pineapple, ham, and melted cheese.",
-    image: "https://example.com/images/hawaiian.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDlsYF90MCvbp9NyWbFexgmQtpmpovRhS47w&s",
     priceOfSm: 7.0,
     priceOfMd: 9.0,
     priceOfLg: 11.5,
@@ -60,7 +60,7 @@ const pizzas = [
   {
     name: "Meat Lovers",
     description: "A carnivore’s dream with pepperoni, sausage, bacon, and ham.",
-    image: "https://example.com/images/meat-lovers.jpg",
+    image: "https://www.thecookierookie.com/wp-content/uploads/2023/09/meat-lovers-pizza-recipe-3.jpg",
     priceOfSm: 8.0,
     priceOfMd: 10.5,
     priceOfLg: 13.5,
@@ -71,7 +71,7 @@ const pizzas = [
   {
     name: "Buffalo Chicken",
     description: "Spicy buffalo chicken with ranch and mozzarella cheese.",
-    image: "https://example.com/images/buffalo-chicken.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBcRAc6ynMuuNCV51YGXzjxD_P0hOwYL9qSw&s",
     priceOfSm: 7.5,
     priceOfMd: 10.0,
     priceOfLg: 13.0,
@@ -83,7 +83,7 @@ const pizzas = [
     name: "Four Cheese",
     description:
       "A mix of mozzarella, cheddar, parmesan, and gorgonzola cheese.",
-    image: "https://example.com/images/four-cheese.jpg",
+    image: "https://kitchenatics.com/wp-content/uploads/2020/09/Cheese-pizza-1.jpg",
     priceOfSm: 6.5,
     priceOfMd: 8.5,
     priceOfLg: 11.0,
@@ -94,7 +94,7 @@ const pizzas = [
   {
     name: "Spinach Alfredo",
     description: "Creamy Alfredo sauce topped with spinach and mozzarella.",
-    image: "https://example.com/images/spinach-alfredo.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB2xdaejSdIf1tDXCKHo6jAYt2cyfk6xGxUw&s",
     priceOfSm: 7.0,
     priceOfMd: 9.0,
     priceOfLg: 12.0,
@@ -106,7 +106,7 @@ const pizzas = [
     name: "Mexican Fiesta",
     description:
       "Topped with jalapeños, beef, onions, and a spicy salsa sauce.",
-    image: "https://example.com/images/mexican-fiesta.jpg",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNw6ws_yloJpOGiXLIjtkeQNOu6iksjfmZAA&s",
     priceOfSm: 7.5,
     priceOfMd: 10.0,
     priceOfLg: 13.0,
