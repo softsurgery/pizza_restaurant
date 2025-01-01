@@ -4,6 +4,7 @@ import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
 import Auth from "./components/common/Auth";
 import Basket from "./components/Basket/Basket";
+import { Toaster } from "react-hot-toast";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ function App() {
   return (
     <div>
       <RouterProvider router={router} />
+      <Toaster />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +27,6 @@ const Login = () => {
 
   return (
     <div>
-      <Toaster />
       <form className="p-10" onSubmit={handleLogin}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center text-center">
