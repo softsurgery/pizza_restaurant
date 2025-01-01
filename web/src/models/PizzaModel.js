@@ -19,12 +19,6 @@ class PizzaModel {
       removePizza: action,
       clearPizzas: action,
     });
-
-    makePersistable(this, {
-      name: "PizzaModel",
-      properties: ["pizzas"],
-      storage: localStorage,
-    });
   }
 
   async fetchPizzas() {

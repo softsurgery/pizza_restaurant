@@ -6,10 +6,10 @@ class CartModel {
 
   constructor() {
     makeObservable(this, {
-      //states
+      // states
       pizzas: observable,
       getCount: computed,
-      //methods
+      // methods
       addPizza: action,
       increasePizza: action,
       decreasePizza: action,
@@ -18,47 +18,40 @@ class CartModel {
     });
 
     makePersistable(this, {
-      name: "PizzaModel",
-      properties: ["pizzas", "count"],
-      expireIn: 3 * 24 * 60 * 60,
-      storage: localStorage,
-    });
+      name: "CartModel",
+      properties: ["pizzas"],
+      expireIn: 3 * 24 * 60 * 60 * 1000, // Expiration in milliseconds (3 days)
+      storage: window.localStorage, // Use localStorage for persistence
+    }).catch((error) =>
+      console.error("Failed to initialize persistence for CartModel:", error)
+    );
   }
 
   addPizza(pizza) {
-    if (!this.pizzas.some((p) => p.id === pizza.id)) {
-      this.pizzas.push(pizza);
-    }
-    else{
-      this.pizzas.forEach((p, index) => {
-        if (p.id === pizza.id) {
-          this.pizzas[index].quantity++;
-          return;
-        }
-      });
+    const existingPizza = this.pizzas.find((p) => p.id === pizza.id);
+    if (!existingPizza) {
+      this.pizzas.push({ ...pizza, quantity: 1 });
+    } else {
+      existingPizza.quantity++;
     }
   }
 
   increasePizza(id) {
-    this.pizzas.forEach((p) => {
-      if (p.id === id) {
-        p.quantity++;
-        return;
-      }
-    });
+    const pizza = this.pizzas.find((p) => p.id === id);
+    if (pizza) {
+      pizza.quantity++;
+    }
   }
 
   decreasePizza(id) {
-      this.pizzas.forEach((p) => {
-        if (p.id === id && p.quantity > 1) {
-          p.quantity--;
-          return;
-        }
-      });
+    const pizza = this.pizzas.find((p) => p.id === id);
+    if (pizza && pizza.quantity > 1) {
+      pizza.quantity--;
+    }
   }
 
   removePizza(id) {
-    this.pizzas = this.pizzas.filter((p) => p.id!== id);
+    this.pizzas = this.pizzas.filter((p) => p.id !== id);
   }
 
   clearPizzas() {
@@ -66,9 +59,8 @@ class CartModel {
   }
 
   get getCount() {
-    return this.pizzas.length;
+    return this.pizzas.reduce((total, pizza) => total + pizza.quantity, 0);
   }
-  
 }
 
 const cartModel = new CartModel();
