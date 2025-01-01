@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const pizzaSeeder = require("./seeder/seeders/pizza.seeder.js");
+const toppingSeeder = require("./seeder/seeders/toppings.seeder.js");
 const database = require("./seeder/database.service.js");
 
 require("dotenv").config();
@@ -39,6 +40,7 @@ require("./routes/basket.routes.js")(app);
 if (process.env.DEBUG) {
   database.clearDatabase();
   pizzaSeeder();
+  toppingSeeder();
 }
 
 let PORT = process.env.PORT || 3000;
