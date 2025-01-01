@@ -16,9 +16,9 @@ const Basket = observer(() => {
       <div className="prose border-b max-w-full mb-5">
         <h1>🛒 Cart</h1>
         <p className="mb-5">
-          The Cart is where you can view and manage the items you&apos;ve selected
-          for purchase. It provides a clear summary of your chosen products and
-          lets you make adjustments before checking out.
+          The Cart is where you can view and manage the items you&apos;ve
+          selected for purchase. It provides a clear summary of your chosen
+          products and lets you make adjustments before checking out.
         </p>
       </div>
       <table className="table">
@@ -89,10 +89,10 @@ const Basket = observer(() => {
                 {/* Action */}
                 <td>
                   <button
-                    className="btn btn-outline"
+                    className="btn btn-outline btn-error"
                     onClick={() => handleRemoveFromCartClick(p)}
                   >
-                    Remove
+                    Delete 
                   </button>
                 </td>
               </tr>
@@ -101,6 +101,14 @@ const Basket = observer(() => {
         </tbody>
         {/* foot */}
       </table>
+      {/* Total Section */}
+      <div className="prose my-5 max-w-full text-right ">
+        <h2>Total</h2>
+        <p>
+          Grand Total: <strong>{cartModel.getTotalPrice.toFixed(2)} $</strong>
+        </p>
+        <button className="btn btn-primary mt-3">Proceed to Checkout</button>
+      </div>
     </div>
   );
 });

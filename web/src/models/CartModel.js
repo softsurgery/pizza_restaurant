@@ -9,6 +9,7 @@ class CartModel {
       // states
       pizzas: observable,
       getCount: computed,
+      getTotalPrice: computed,
       // methods
       addPizza: action,
       increasePizza: action,
@@ -60,6 +61,18 @@ class CartModel {
 
   get getCount() {
     return this.pizzas.reduce((total, pizza) => total + pizza.quantity, 0);
+  }
+
+  get getTotalPrice() {
+    return this.pizzas.reduce((total, pizza) => {
+      const price =
+        pizza.size === "Small"
+          ? pizza.priceOfSm
+          : pizza.size === "Medium"
+          ? pizza.priceOfMd
+          : pizza.priceOfLg;
+      return total + pizza.quantity * price;
+    }, 0);
   }
 }
 
