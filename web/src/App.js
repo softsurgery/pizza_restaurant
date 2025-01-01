@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
 import Auth from "./components/common/Auth";
+import Basket from "./components/Basket/Basket";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
       { path: "/menu", element: <PizzaMenu /> },
       { path: "/custom-order", element: <CustomOrder /> },
       { path: "*", element: <div> Not Found</div> },
+      { path: "/basket", element: <Basket /> },
     ],
   },
   {

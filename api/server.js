@@ -28,6 +28,7 @@ require('./routes/note.routes.js')(app);
 require('./routes/pizza.routes.js')(app);
 require('./routes/topping.routes.js')(app);
 require('./routes/pizza-topping.routes.js')(app);
+require('./routes/basket.routes.js')(app);
 
 let PORT = process.env.PORT || 3000
 

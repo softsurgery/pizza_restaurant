@@ -72,7 +72,10 @@ export default function Navbar() {
         <ul className="menu menu-horizontal">{menuItemsBlock}</ul>
       </div>
       <div className="navbar-end">
-        <span className="btn btn-ghost">Balance 0.00 $</span>
+        <Link className="btn btn-ghost text-base" to="/basket">
+          🛒 Basket
+        </Link>
+        <span className="btn btn-ghost text-base">Balance 0.00 $</span>
       </div>
     </div>
   );
