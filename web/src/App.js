@@ -5,6 +5,7 @@ import CustomOrder from "./pages/CustomOrder";
 import Auth from "./components/common/Auth";
 import Basket from "./components/Basket/Basket";
 import { Toaster } from "react-hot-toast";
+import Account from "./components/Account/Account";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "/custom-order", element: <CustomOrder /> },
       { path: "*", element: <div> Not Found</div> },
       { path: "/basket", element: <Basket /> },
+      { path: "/account", element: <Account /> },
     ],
   },
   {
