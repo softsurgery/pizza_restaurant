@@ -10,19 +10,18 @@ import Account from "./components/Account/Account";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    children: [
-      // Add your routes here
-      { path: "/menu", element: <PizzaMenu /> },
-      { path: "/custom-order", element: <CustomOrder /> },
-      { path: "*", element: <div> Not Found</div> },
-      { path: "/basket", element: <Basket /> },
-      { path: "/account", element: <Account /> },
-    ],
+    element: <Auth />, // Default to the Sign-Up Component
   },
   {
-    path: "/auth",
-    element: <Auth />,
+    path: "/layout",
+    element: <Layout />,
+    children: [
+      { path: "menu", element: <PizzaMenu /> }, // Relative path
+      { path: "custom-order", element: <CustomOrder /> }, // Relative path
+      { path: "*", element: <div> Not Found</div> }, // Relative path
+      { path: "basket", element: <Basket /> }, // Relative path
+      { path: "account", element: <Account /> }, // Relative path
+    ],
   },
 ]);
 

@@ -5,9 +5,9 @@ import { observer } from "mobx-react-lite";
 import cartModel from "../../models/CartModel";
 
 const MenuItems = [
-  { title: "Menu", href: "/menu" },
-  { title: "Custom Order", href: "/custom-order" },
-  { title: "My Account", href: "/account" },
+  { title: "Menu", href: "/layout/menu" },
+  { title: "Custom Order", href: "/layout/custom-order" },
+  { title: "My Account", href: "/layout/account" },
 ];
 
 export const Navbar = observer(() => {
@@ -75,7 +75,7 @@ export const Navbar = observer(() => {
       </div>
 
       <div className="navbar-end gap-4">
-        <Link className="indicator cursor-pointer text-lg" to="/basket">
+        <Link className="indicator cursor-pointer text-lg" to="/layout/basket">
           {cartModel.getCount !== 0 && (
             <span className="indicator-item indicator-end badge badge-primary text-xs w-5 h-4 text-white">
               {cartModel.getCount}

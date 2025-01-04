@@ -20,7 +20,7 @@ const SignUp = () => {
       if (response.status === 201) {
         toast.success("Account created successfully!");
         setTimeout(() => {
-          navigate("/menu");
+          navigate("/layout/menu");
         }, 1000);
       }
     } catch (error) {

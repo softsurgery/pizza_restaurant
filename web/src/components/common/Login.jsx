@@ -17,7 +17,7 @@ const Login = () => {
       });
       if (response.status === 200) {
         toast.success("Logged in successfully!");
-        setTimeout(() => navigate("/menu"), 1000);
+        setTimeout(() => navigate("/layout/menu"), 1000);
       }
     } catch (error) {
       console.error("Error logging in:", error);

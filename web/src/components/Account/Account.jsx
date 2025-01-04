@@ -1,5 +1,4 @@
 import React from "react";
-
 const Account = () => {
   return (
     <div className="container flex flex-1 flex-col overflow-auto p-6">
@@ -25,7 +24,6 @@ const Account = () => {
             Update profile visibility
           </button>
         </div>
-
         {/* Personal information */}
         <div className="shadow rounded-lg overflow-hidden bg-gray-800">
           <div className="flex justify-center items-center overflow-hidden">
@@ -111,7 +109,6 @@ const Account = () => {
                     <option>Sousse</option>
                   </select>
                 </div>
-
                 {/* City */}
                 <div className="form-control">
                   <label className="label">
@@ -134,5 +131,4 @@ const Account = () => {
     </div>
   );
 };
-
 export default Account;
