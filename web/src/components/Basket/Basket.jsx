@@ -2,14 +2,26 @@ import { observer } from "mobx-react-lite";
 import React from "react";
 import cartModel from "../../models/CartModel";
 import toast from "react-hot-toast";
+import Checkout from "../Checkout/Checkout";
 
 const Basket = observer(() => {
+  const [showCheckout, setShowCheckout] = React.useState(false);
+
   const handleRemoveFromCartClick = (pizza) => {
     cartModel.removePizza(pizza.id);
     toast.success(`Pizza ${pizza.label} (${pizza.size}) Removed successfully`, {
       className: "bg-slate-800 text-white",
     });
   };
+
+  const handleButtonClick = () => {
+    setShowCheckout(true);
+  };
+
+  if (showCheckout) {
+    // Render the Checkout component as the full-page content
+    return <Checkout />;
+  }
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
@@ -100,7 +112,6 @@ const Basket = observer(() => {
               );
             })}
           </tbody>
-          {/* foot */}
         </table>
       </div>
 
@@ -109,7 +120,9 @@ const Basket = observer(() => {
         <p>
           Total: <strong>{cartModel.getTotalPrice.toFixed(2)} $</strong>
         </p>
-        <button className="btn btn-primary mt-3">Proceed to Checkout</button>
+        <button className="btn btn-primary mt-3" onClick={handleButtonClick}>
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );
