@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useUser } from "../../Context/User/UserContext";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -18,6 +20,8 @@ const SignUp = () => {
         password,
       });
       if (response.status === 201) {
+        const user = { username, email };
+        localStorage.setItem("user", JSON.stringify(user)); // Save user data
         toast.success("Account created successfully!");
         setTimeout(() => {
           navigate("/layout/menu");

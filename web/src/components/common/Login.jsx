@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useUser } from "../../Context/User/UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,6 +18,8 @@ const Login = () => {
         password,
       });
       if (response.status === 200) {
+        const user = response.data; 
+        localStorage.setItem("user", JSON.stringify(user));
         toast.success("Logged in successfully!");
         setTimeout(() => navigate("/layout/menu"), 1000);
       }

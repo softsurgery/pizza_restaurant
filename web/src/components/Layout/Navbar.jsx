@@ -66,7 +66,7 @@ export const Navbar = observer(() => {
             </ul>
           )}
         </div>
-        <Link className="btn btn-ghost text-xl" to="/menu">
+        <Link className="btn btn-ghost text-xl" to="/layout/menu">
           🍕 Pizza Shop
         </Link>
       </div>
