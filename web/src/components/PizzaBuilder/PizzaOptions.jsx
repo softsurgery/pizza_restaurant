@@ -1,20 +1,19 @@
+import { observer } from "mobx-react-lite";
 import { cn } from "../../lib/tailwind";
 import { Label } from "../common/Label";
-import { usePizzaContext } from "./PizzaContext";
 import { ToppingIcon } from "./ToppingIcon";
 import { ToppingOption } from "./ToppingOptions";
+import customOrderModel from "../../models/CustomOrderModel";
 
-export const PizzaOptions = ({ className, sizeOptions, toppingOptions }) => {
-  const { selectedSize, setSelectedSize, selectedToppings } = usePizzaContext();
-  console.log(selectedToppings);
+export const PizzaOptions = observer(({ className, sizeOptions, toppingOptions }) => {
   return (
     <section className={cn(className)}>
       <Label className={"my-1"}>Size</Label>
       <div>
         <select
           className="select select-bordered w-full max-w-xs my-4"
-          value={selectedSize}
-          onChange={(e) => setSelectedSize(e.target.value)}
+          value={customOrderModel.size}
+          onChange={(e) => customOrderModel.setSize(e.target.value)}
         >
           <option disabled selected>
             Pizza Size
@@ -59,7 +58,7 @@ export const PizzaOptions = ({ className, sizeOptions, toppingOptions }) => {
             <ToppingOption
               className={cn(
                 'rounded-lg',
-                selectedToppings.find((t) => t === topping[0]) &&
+                customOrderModel.toppings.find((t) => t === topping[0]) &&
                   "bg-slate-800"
               )}
               key={topping[0]}
@@ -71,4 +70,4 @@ export const PizzaOptions = ({ className, sizeOptions, toppingOptions }) => {
       </ul>
     </section>
   );
-};
+});

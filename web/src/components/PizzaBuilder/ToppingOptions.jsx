@@ -1,21 +1,16 @@
-import { usePizzaContext } from "./PizzaContext";
+import { observer } from "mobx-react-lite";
 import { ToppingIcon } from "./ToppingIcon";
+import customOrderModel from "../../models/CustomOrderModel";
 
-export const ToppingOption = ({ className, topping, toppingIcons }) => {
-  const { selectedToppings, setSelectedToppings } = usePizzaContext();
+export const ToppingOption = observer(({ className, topping, toppingIcons }) => {
 
   const handleToppingOptionClick = (selectedTopping) => {
-    if (selectedToppings.includes(selectedTopping)) {
+    if (customOrderModel.toppings.includes(selectedTopping)) {
       // Remove topping
-      setSelectedToppings((prevSelectedToppings) =>
-        prevSelectedToppings.filter((topping) => topping !== selectedTopping)
-      );
+     customOrderModel.removeTopping(selectedTopping)
     } else {
       // Add topping
-      setSelectedToppings((prevSelectedToppings) => [
-        ...prevSelectedToppings,
-        selectedTopping,
-      ]);
+      customOrderModel.addTopping(selectedTopping)
     }
   };
 
@@ -25,7 +20,7 @@ export const ToppingOption = ({ className, topping, toppingIcons }) => {
         type="checkbox"
         id={topping}
         className="pizza-options__topping-input"
-        checked={selectedToppings.includes(topping)}
+        checked={customOrderModel.toppings.includes(topping)}
         onChange={(e) => handleToppingOptionClick(e.target.id)}
       />
       <label
@@ -47,4 +42,4 @@ export const ToppingOption = ({ className, topping, toppingIcons }) => {
       </label>
     </li>
   );
-};
+});

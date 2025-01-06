@@ -1,94 +1,34 @@
-import { useNavigate } from "react-router-dom";
-import { usePizzaContext } from "./PizzaContext";
 import React from "react";
 import { cn } from "../../lib/tailwind";
+import { observer } from "mobx-react-lite";
+import customOrderModel from "../../models/CustomOrderModel";
 
-export const OrderDetails = ({
-  className,
-  discountCodes,
-  sizeOptions,
-  toppingPrice,
-}) => {
-  const {
-    selectedSize,
-    selectedToppings,
-    discountCode,
-    setDiscountCode,
-    discountApplied,
-    setDiscountApplied,
-    orderConfirmed,
-    setOrderConfirmed,
-  } = usePizzaContext();
+export const OrderDetails = observer(
+  ({ className, sizeOptions, toppingPrice }) => {
 
-  const navigate = useNavigate();
+    const totalPrice = React.useMemo(
+      () =>
+        parseFloat(
+          (
+            (sizeOptions[customOrderModel.size].basePrice +
+              toppingPrice * customOrderModel.toppings.length) /
+            100
+          ).toFixed(2)
+        ),
+      [customOrderModel.size, customOrderModel.toppings]
+    );
 
-  const discountValid = React.useMemo(
-    () => Object.keys(discountCodes).includes(discountCode),
-    [discountCode]
-  );
+    return (
+      <section className={cn("flex gap-5 justify-center", className)}>
+        <div>
+          <h3>Total Price</h3>
+          <p>{`$${totalPrice.toFixed(2)}`}</p>
 
-  const totalPrice = React.useMemo(
-    () =>
-      parseFloat(
-        (
-          (sizeOptions[selectedSize].basePrice +
-            toppingPrice * selectedToppings.length) /
-          100
-        ).toFixed(2)
-      ),
-    [selectedSize, selectedToppings]
-  );
-
-  const handleDiscountInput = (value) => {
-    setDiscountCode(value.trim().toLowerCase());
-
-    if (discountApplied) {
-      setDiscountApplied(false);
-    }
-  };
-
-  const handleDiscountEnter = (e) => {
-    if (e.key === "Enter") {
-      setDiscountApplied(true);
-    }
-  };
-
-  const handleOrderConfirm = () => {
-    setOrderConfirmed(true);
-
-    navigate("/confirmation");
-  };
-
-  return (
-    <section className={cn("flex gap-5 justify-center", className)} >
-     
-      <div>
-        <h3>Total Price</h3>
-        <p>
-          {discountApplied && discountValid ? (
-            <>
-              <ins>
-                $
-                {(
-                  totalPrice -
-                  totalPrice * (discountCodes[discountCode] / 100)
-                ).toFixed(2)}
-              </ins>
-              <del>${totalPrice.toFixed(2)}</del>
-            </>
-          ) : (
-            `$${totalPrice.toFixed(2)}`
-          )}
-        </p>
-        {!orderConfirmed && (
-          <button
-            className="btn"
-            onClick={handleOrderConfirm}
-          >
+          <button className="btn" onClick={() => {}}>
             Order
           </button>
-        )}
-      </div>
-    </section>
-  );
-};
+        </div>
+      </section>
+    );
+  }
+);

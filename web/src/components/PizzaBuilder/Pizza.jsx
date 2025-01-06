@@ -1,15 +1,15 @@
 import React from "react";
-import { usePizzaContext } from "./PizzaContext";
 import { PizzaTopping } from "./PizzaTopping";
 import { cn } from "../../lib/tailwind";
+import { observer } from "mobx-react-lite";
+import customOrderModel from "../../models/CustomOrderModel";
 
-export const Pizza = ({ className, toppingOptions }) => {
-  const { selectedToppings } = usePizzaContext();
+export const Pizza = observer(({ className, toppingOptions }) => {
 
   return (
     <div>
       <div className={cn("pizza__pie", className)}>
-        {selectedToppings.map((topping) => (
+        {customOrderModel.toppings.map((topping) => (
           <PizzaTopping
             key={topping}
             topping={topping}
@@ -19,4 +19,4 @@ export const Pizza = ({ className, toppingOptions }) => {
       </div>
     </div>
   );
-};
+});
