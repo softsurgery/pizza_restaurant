@@ -6,6 +6,7 @@ import Auth from "./components/common/Auth";
 import Basket from "./components/Basket/Basket";
 import { Toaster } from "react-hot-toast";
 import Account from "./components/Account/Account";
+import { UserProvider } from "./Context/UserContext";
 
 const router = createBrowserRouter([
   {
@@ -28,8 +29,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div>
-      <RouterProvider router={router} />
-      <Toaster />
+      <UserProvider>
+        <RouterProvider router={router} />
+        <Toaster />
+      </UserProvider>
     </div>
   );
 }
