@@ -1,6 +1,5 @@
-import axios from "axios";
 import { action, makeObservable, observable } from "mobx";
-import { makePersistable } from "mobx-persist-store";
+import axios from "../api/axios";
 
 class PizzaModel {
   pizzas = [];
@@ -24,9 +23,7 @@ class PizzaModel {
   async fetchPizzas() {
     try {
       this.loading = true;
-      const response = await axios.get(
-        "http://localhost:3000/pizzas/"
-      );
+      const response = await axios.get("pizzas/");
       this.pizzas = response.data;
       this.loading = false;
     } catch (err) {

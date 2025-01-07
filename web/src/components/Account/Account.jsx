@@ -1,6 +1,6 @@
 import React from "react";
-import axios from "axios";
 import { toast } from "react-hot-toast";
+import axios from "../../api/axios";
 
 const Account = () => {
   const [user, setUser] = React.useState({
