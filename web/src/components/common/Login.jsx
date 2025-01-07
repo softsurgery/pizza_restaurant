@@ -21,7 +21,7 @@ const Login = () => {
         const user = response.data; 
         localStorage.setItem("user", JSON.stringify(user));
         toast.success("Logged in successfully!");
-        setTimeout(() => navigate("/layout/menu"), 1000);
+        setTimeout(() => navigate("/app/menu"), 1000);
       }
     } catch (error) {
       console.error("Error logging in:", error);

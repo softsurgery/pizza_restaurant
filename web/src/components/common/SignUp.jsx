@@ -24,7 +24,7 @@ const SignUp = () => {
         localStorage.setItem("user", JSON.stringify(user)); // Save user data
         toast.success("Account created successfully!");
         setTimeout(() => {
-          navigate("/layout/menu");
+          navigate("/app/menu");
         }, 1000);
       }
     } catch (error) {

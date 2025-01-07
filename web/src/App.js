@@ -14,14 +14,14 @@ const router = createBrowserRouter([
     element: <Auth />, // Default to the Sign-Up Component
   },
   {
-    path: "/layout",
+    path: "/app",
     element: <Layout />,
     children: [
       { path: "menu", element: <PizzaMenu /> }, // Relative path
       { path: "custom-order", element: <CustomOrder /> }, // Relative path
-      { path: "*", element: <div> Not Found</div> }, // Relative path
       { path: "basket", element: <Basket /> }, // Relative path
       { path: "account", element: <Account /> }, // Relative path
+      { path: "*", element: <div> Not Found</div> }, // Relative path
     ],
   },
 ]);
