@@ -1,4 +1,5 @@
 import _axios from "axios";
+import authModel from "../models/AuthModel";
 
 const baseURL = process.env.REACT_APP_API_URL;
 
@@ -10,9 +11,8 @@ const axios = _axios.create({
 // Add a request interceptor
 axios.interceptors.request.use(
   (config) => {
-    // Uncomment and modify headers as needed
-    // config.headers["Content-Type"] = "application/json";
-    // config.headers["Cookie"] = `auth_token=YOUR_AUTH_TOKEN_HERE`; // Example cookie
+    config.headers["Content-Type"] = "application/json";
+    config.headers["Cookie"] = `auth_token=${authModel.token}`;
     return config;
   },
   (error) => {

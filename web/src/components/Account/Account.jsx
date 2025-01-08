@@ -1,8 +1,10 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 import axios from "../../api/axios";
+import { observer } from "mobx-react-lite";
+import authModel from "../../models/AuthModel";
 
-const Account = () => {
+export const Account = observer(() => {
   const [user, setUser] = React.useState({
     username: "username",
     email: "email",
@@ -72,7 +74,11 @@ const Account = () => {
           <button className="btn btn-link mt-2">
             Update profile visibility
           </button>
+          <button className="btn btn-link mt-2" onClick={authModel.logout}>
+            Sign-out
+          </button>
         </div>
+
         {/* Personal information */}
         <div className="shadow rounded-lg overflow-hidden bg-gray-800 w-full lg:w-3/5">
           <div className="flex justify-center items-center">
@@ -194,6 +200,4 @@ const Account = () => {
       </div>
     </div>
   );
-};
-
-export default Account;
+});

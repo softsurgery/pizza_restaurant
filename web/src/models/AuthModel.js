@@ -95,6 +95,7 @@ class AuthModel {
 
   // Logout method
   logout() {
+    console.log("out")
     this.user = null;
     this.token = null;
   }

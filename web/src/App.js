@@ -1,12 +1,11 @@
-import Layout from "./components/Layout/Layout";
+import { Layout } from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
 import Auth from "./pages/Auth";
 import Basket from "./components/Basket/Basket";
 import { Toaster } from "react-hot-toast";
-import Account from "./components/Account/Account";
-import { UserProvider } from "./Context/UserContext";
+import { Account } from "./components/Account/Account";
 
 const router = createBrowserRouter([
   {
@@ -29,10 +28,8 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div>
-      <UserProvider>
-        <RouterProvider router={router} />
-        <Toaster toastOptions={{ className: "bg-slate-800 text-white" }} />
-      </UserProvider>
+      <RouterProvider router={router} />
+      <Toaster toastOptions={{ className: "bg-slate-800 text-white" }} />
     </div>
   );
 }
