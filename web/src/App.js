@@ -2,7 +2,7 @@ import { Layout } from "./components/Layout/Layout";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { PizzaMenu } from "./components/PizzaMenu/PizzaMenu";
 import CustomOrder from "./pages/CustomOrder";
-import Auth from "./pages/Auth";
+import { Auth } from "./pages/Auth";
 import Basket from "./components/Basket/Basket";
 import { Toaster } from "react-hot-toast";
 import { Account } from "./components/Account/Account";

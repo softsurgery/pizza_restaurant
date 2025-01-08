@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { Login } from "../components/Auth/Login";
 import { SignUp } from "../components/Auth/SignUp";
+import { observer } from "mobx-react-lite";
+import { useNavigate } from "react-router-dom";
+import authModel from "../models/AuthModel";
 
-const Auth = () => {
+export const Auth = observer(() => {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (authModel.token) navigate("/app/menu");
+  }, [authModel.token]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted p-6 md:p-10">
@@ -50,6 +58,5 @@ const Auth = () => {
       </div>
     </div>
   );
-};
+});
 
-export default Auth;

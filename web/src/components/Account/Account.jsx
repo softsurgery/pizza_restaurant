@@ -20,12 +20,6 @@ export const Account = observer(() => {
     city: "Tunis",
   });
 
-  React.useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +31,6 @@ export const Account = observer(() => {
     try {
       await axios.post("http://localhost:3000/userDetails", {
         ...formData,
-        // userId: "64b2f9d1234567890abcdef0", // Replace with the actual user ID
       });
       toast.success("Data saved successfully!");
     } catch (error) {
@@ -74,7 +67,7 @@ export const Account = observer(() => {
           <button className="btn btn-link mt-2">
             Update profile visibility
           </button>
-          <button className="btn btn-link mt-2" onClick={authModel.logout}>
+          <button className="btn btn-link mt-2" onClick={() => authModel.logout()}>
             Sign-out
           </button>
         </div>

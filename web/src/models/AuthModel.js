@@ -32,7 +32,7 @@ class AuthModel {
     });
     makePersistable(this, {
       name: "AuthModel",
-      properties: ["token"],
+      properties: ["user", "token"],
       expireIn: 3 * 24 * 60 * 60 * 1000, // Expiration in milliseconds (3 days)
       storage: window.localStorage, // Use localStorage for persistence
     }).catch((error) =>
@@ -93,9 +93,7 @@ class AuthModel {
     }
   }
 
-  // Logout method
   logout() {
-    console.log("out")
     this.user = null;
     this.token = null;
   }
