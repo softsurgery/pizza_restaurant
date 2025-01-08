@@ -1,23 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { observer } from "mobx-react-lite";
 import authModel from "../../models/AuthModel";
 
 export const SignUp = observer(() => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
-    const response = await authModel.signup(username, email, password);
+    const response = await authModel.signup();
     console.log(response);
     if (response.status === 201) {
       toast.success(response.message);
-      setTimeout(() => {
-        navigate("/app/menu");
-      }, 1000);
+      // setTimeout(() => {
+      //   navigate("/app/menu");
+      // }, 1000);
     } else {
       toast.error(response.message);
     }
@@ -39,8 +36,8 @@ export const SignUp = observer(() => {
               className="input input-bordered w-full"
               id="username"
               placeholder="jhon"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={authModel.username}
+              onChange={(e) => authModel.set("username", e.target.value)}
               required
             />
             <label htmlFor="email">Email</label>
@@ -49,8 +46,8 @@ export const SignUp = observer(() => {
               id="email"
               type="email"
               placeholder="jhon@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={authModel.email}
+              onChange={(e) => authModel.set("email", e.target.value)}
               required
             />
           </div>
@@ -62,8 +59,8 @@ export const SignUp = observer(() => {
               className="input input-bordered w-full max-w-xs"
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={authModel.password}
+              onChange={(e) => authModel.set("password", e.target.value)}
               required
             />
           </div>
