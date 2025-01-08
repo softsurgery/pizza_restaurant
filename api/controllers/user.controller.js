@@ -1,17 +1,40 @@
 const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 
-// Sign-up a new user
+// Sign-up a new user with detailed error handling
 const signupUser = async (req, res) => {
   try {
     const user = new User(req.body);
+
     await user.save();
-    const token = await user.generateAuthToken();
-    res.status(201).send({ user, token });
+
+    return res.status(201).send({
+      message: 'User Created Successfully',
+    });
   } catch (e) {
-    res.status(400).send(e);
+    if (e.name === 'ValidationError') {
+      return res.status(400).send({
+        message: 'Invalid user data',
+        details: e.errors,
+      });
+    }
+    if (e.code === 11000) {
+      // Check which field caused the duplicate key error
+      const duplicateField = Object.keys(e.keyValue)[0];
+      const duplicateValue = e.keyValue[duplicateField];
+      
+      return res.status(409).send({
+        message: `Duplicate key error: ${duplicateField} already exists.`,
+        details: `The value "${duplicateValue}" for "${duplicateField}" is already in use.`,
+      });
+    }
+    res.status(500).send({
+      error: 'Internal server error',
+      message: e.message,
+    });
   }
 };
+
 
 // Sign-in user
 const signinUser = async (req, res) => {
