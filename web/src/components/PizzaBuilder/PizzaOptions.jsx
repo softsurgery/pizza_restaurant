@@ -1,11 +1,16 @@
+import React from "react";
 import { observer } from "mobx-react-lite";
 import { cn } from "../../lib/tailwind";
 import { Label } from "../common/Label";
 import { ToppingIcon } from "./ToppingIcon";
 import { ToppingOption } from "./ToppingOptions";
 import customOrderModel from "../../models/CustomOrderModel";
+import toppingModel from "../../models/ToppingModel";
 
 export const PizzaOptions = observer(({ className, sizeOptions, toppingOptions }) => {
+  React.useEffect(()=>{
+    toppingModel.fetchToppings();
+  },[]);
   return (
     <section className={cn(className)}>
       <Label className={"my-1"}>Size</Label>
@@ -63,6 +68,7 @@ export const PizzaOptions = observer(({ className, sizeOptions, toppingOptions }
               )}
               key={topping[0]}
               topping={topping[0]}
+              toppingPrice={toppingModel.toppings.find((t) => t.name === topping[0])?.price}
               toppingIcons={topping[1].icons}
             />
           );

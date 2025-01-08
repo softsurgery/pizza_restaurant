@@ -5,7 +5,6 @@ import { sizeOptions } from "./constants/size-options";
 import { OrderDetails } from "./OrderDetails";
 import { PizzaOptions } from "./PizzaOptions";
 
-const toppingPrice = 150;
 
 export const PizzaBuilder = () => {
   return (
@@ -16,14 +15,12 @@ export const PizzaBuilder = () => {
         </div>
         <OrderDetails
           sizeOptions={sizeOptions}
-          toppingPrice={toppingPrice}
         />
       </div>
       <PizzaOptions
         className={"col-span-3"}
         sizeOptions={sizeOptions}
         toppingOptions={toppingOptions}
-        toppingPrice={toppingPrice}
       />
     </div>
   );

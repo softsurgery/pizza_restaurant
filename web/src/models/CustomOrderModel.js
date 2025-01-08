@@ -32,7 +32,7 @@ class CustomOrderModel {
     );
   }
   addTopping(topping) {
-    this.toppings.push(topping);
+    this.toppings = [...this.toppings, topping];
   }
 
   removeTopping(topping) {
