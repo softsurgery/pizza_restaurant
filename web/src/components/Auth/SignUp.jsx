@@ -4,11 +4,12 @@ import { observer } from "mobx-react-lite";
 import authModel from "../../models/AuthModel";
 
 export const SignUp = observer(({ switchToLogin }) => {
+  
   const handleSignUp = async () => {
     const response = await authModel.signup();
-    console.log(response);
     if (response.status === 201) {
       toast.success(response.message);
+      authModel.set("password", "");
       switchToLogin();
     } else {
       toast.error(response.message);
