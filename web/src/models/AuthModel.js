@@ -34,16 +34,20 @@ class AuthModel {
     }
   }
 
-  // Signup method
-  async signup(data) {
+  async signup(username, email, password) {
     this.loading = true;
     this.error = null;
+
     try {
-      const response = await axios.post("signup", data);
-      this.user = response.data.user;
-      localStorage.setItem("auth_token", response.data.token); // Save token if needed
+      const response = await axios.post("/signup", {
+        username,
+        email,
+        password,
+      });
+
+      return { message: response.message, status: 201 };
     } catch (error) {
-      this.error = error.response?.data?.message || "Signup failed";
+      return { message: error.response.data.message, status: error.response.status };
     } finally {
       this.loading = false;
     }

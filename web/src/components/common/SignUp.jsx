@@ -1,41 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useUser } from "../../Context/UserContext";
-import axios from "../../api/axios";
+import { observer } from "mobx-react-lite";
+import authModel from "../../models/AuthModel";
 
-const SignUp = () => {
+export const SignUp = observer(() => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { setUser } = useUser();
 
-  const handleSignUp = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3000/signup", {
-        name: username,
-        email,
-        password,
-      });
-      if (response.status === 201) {
-        const user = { username, email };
-        localStorage.setItem("user", JSON.stringify(user)); // Save user data
-        toast.success("Account created successfully!");
-        setTimeout(() => {
-          navigate("/app/menu");
-        }, 1000);
-      }
-    } catch (error) {
-      console.error("Error signing up:", error);
-      toast.error("Failed to create an account. Please try again.");
+  const handleSignUp = async () => {
+    const response = await authModel.signup(username, email, password);
+    console.log(response);
+    if (response.status === 201) {
+      toast.success(response.message);
+      setTimeout(() => {
+        navigate("/app/menu");
+      }, 1000);
+    } else {
+      toast.error(response.message);
     }
   };
 
   return (
     <div>
-      <form className="p-6" onSubmit={handleSignUp}>
+      <div className="p-6">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-2xl font-bold">Sign-Up</h1>
@@ -77,13 +67,11 @@ const SignUp = () => {
               required
             />
           </div>
-          <button type="submit" className="w-full btn btn-outline">
+          <button className="w-full btn btn-outline" onClick={handleSignUp}>
             Create an Account
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
-};
-
-export default SignUp;
+});

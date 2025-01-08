@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { cn } from "../../lib/tailwind";
 import Login from "./Login";
-import SignUp from "./SignUp";
+import { SignUp } from "./SignUp";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
