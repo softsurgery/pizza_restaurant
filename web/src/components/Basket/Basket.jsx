@@ -50,11 +50,11 @@ const Basket = observer(() => {
           <tbody>
             {cartModel.pizzas.map((p) => {
               const unitPrice =
-                p.size === "Small"
+                p.flag === "custom" ? p.price : p.size === "Small"
                   ? p.priceOfSm
                   : p.size === "Medium"
-                  ? p.priceOfMd
-                  : p.priceOfLg;
+                    ? p.priceOfMd
+                    : p.priceOfLg;
               const totalPrice = unitPrice * p.quantity;
               return (
                 <tr key={p.id}>

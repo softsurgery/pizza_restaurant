@@ -3,11 +3,14 @@ import { makePersistable } from "mobx-persist-store";
 
 class CartModel {
   pizzas = [];
+  customPizzaCounter = 1;
 
   constructor() {
     makeObservable(this, {
       // states
       pizzas: observable,
+      customPizzaCounter: observable,
+      // computed properties
       getCount: computed,
       getTotalPrice: computed,
       // methods
@@ -16,11 +19,12 @@ class CartModel {
       decreasePizza: action,
       removePizza: action,
       clearPizzas: action,
+      increaseCustomPizzaCounter: action,
     });
 
     makePersistable(this, {
       name: "CartModel",
-      properties: ["pizzas"],
+      properties: ["pizzas", "customPizzaCounter"],
       expireIn: 3 * 24 * 60 * 60 * 1000, // Expiration in milliseconds (3 days)
       storage: window.localStorage, // Use localStorage for persistence
     }).catch((error) =>
@@ -65,14 +69,18 @@ class CartModel {
 
   get getTotalPrice() {
     return this.pizzas.reduce((total, pizza) => {
-      const price =
+      const price = pizza.flag === "custom" ? pizza.price :
         pizza.size === "Small"
           ? pizza.priceOfSm
           : pizza.size === "Medium"
-          ? pizza.priceOfMd
-          : pizza.priceOfLg;
+            ? pizza.priceOfMd
+            : pizza.priceOfLg;
       return total + pizza.quantity * price;
     }, 0);
+  }
+
+  increaseCustomPizzaCounter() {
+    return this.customPizzaCounter++;
   }
 }
 
