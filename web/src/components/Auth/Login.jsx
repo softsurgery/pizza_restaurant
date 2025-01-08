@@ -18,7 +18,7 @@ const Login = () => {
         password,
       });
       if (response.status === 200) {
-        const user = response.data; 
+        const user = response.data;
         localStorage.setItem("user", JSON.stringify(user));
         toast.success("Logged in successfully!");
         setTimeout(() => navigate("/app/menu"), 1000);
@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <div>
-      <form className="p-10" onSubmit={handleLogin}>
+      <div className="p-10">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -74,7 +74,7 @@ const Login = () => {
             Login
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

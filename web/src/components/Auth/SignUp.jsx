@@ -1,20 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { observer } from "mobx-react-lite";
 import authModel from "../../models/AuthModel";
 
-export const SignUp = observer(() => {
-  const navigate = useNavigate();
-
+export const SignUp = observer(({ switchToLogin }) => {
   const handleSignUp = async () => {
     const response = await authModel.signup();
     console.log(response);
     if (response.status === 201) {
       toast.success(response.message);
-      // setTimeout(() => {
-      //   navigate("/app/menu");
-      // }, 1000);
+      switchToLogin();
     } else {
       toast.error(response.message);
     }
@@ -22,7 +17,7 @@ export const SignUp = observer(() => {
 
   return (
     <div>
-      <div className="p-6">
+      <div className="p-10">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center text-center">
             <h1 className="text-2xl font-bold">Sign-Up</h1>

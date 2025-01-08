@@ -58,8 +58,7 @@ class AuthModel {
         email: this.email,
         password: this.password,
       });
-      console.log("test", response);
-      return { message: response.data.message, status: 201 };
+      return { message: response.data.message + ", Now You Can Login", status: 201 };
     } catch (error) {
       return {
         message: error.response.data.message,

@@ -17,30 +17,28 @@ const Auth = () => {
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>
-            <div>
-              {isLogin ? <Login /> : <SignUp />}
-              <div className="text-center m-4">
-                {isLogin ? (
-                  <p>
-                    Don&apos;t have an account?{" "}
-                    <button
-                      className="text-primary underline underline-offset-4"
-                      onClick={() => setIsLogin(false)}
-                    >
-                      Sign up
-                    </button>
-                  </p>
-                ) : (
-                  <p>
-                    Already have an account?{" "}
-                    <button
-                      className="text-primary underline underline-offset-4"
-                      onClick={() => setIsLogin(true)}
-                    >
-                      Login
-                    </button>
-                  </p>
-                )}
+            <div className="h-[600px] w-[350px]">
+              {isLogin ? (
+                <Login />
+              ) : (
+                <SignUp
+                  switchToLogin={() => {
+                    setIsLogin(true);
+                  }}
+                />
+              )}
+              <div className="text-center">
+                <p>
+                  {isLogin
+                    ? "Don't have an account?"
+                    : "Already have an account?"}
+                </p>
+                <button
+                  className="text-primary underline underline-offset-4"
+                  onClick={() => setIsLogin(!isLogin)}
+                >
+                  <span>{isLogin ? "Sign-Up" : "Login"}</span>
+                </button>
               </div>
             </div>
           </div>
