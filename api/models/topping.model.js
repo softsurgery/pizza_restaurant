@@ -7,19 +7,10 @@ const ToppingSchema = new mongoose.Schema({
     unique: true, 
     trim: true, 
   },
-  type: {
-    type: String,
-    enum: ['vegetable', 'meat', 'cheese', 'other'], 
-    required: true,
-  },
   price: {
     type: Number,
     required: true,
     min: 0, 
-  },
-  available: {
-    type: Boolean,
-    default: true, 
   },
   createdAt: {
     type: Date,
