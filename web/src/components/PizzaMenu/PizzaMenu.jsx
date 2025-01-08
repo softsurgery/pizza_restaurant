@@ -17,32 +17,20 @@ export const PizzaMenu = observer(({ className }) => {
     return <p className="text-red-500">Error: {pizzaModel.error}</p>;
   }
   return (
-    <div className="flex flex-1 flex-col overflow-hidden">
-      <div className="prose border-b max-w-full mb-5">
-        <h1>🛎️ Our Pizza Menu</h1>
-        <p className="mb-5">
-          Indulge in our hand-crafted pizzas, made with the freshest ingredients
-          and baked to perfection. From classic favorites to creative
-          specialties, there's something for every pizza lover to enjoy.
-          Discover your new favorite slice today!
-        </p>
-      </div>
-
-      <div className="flex flex-1 flex-col overflow-auto pb-5">
-        <div
-          className={cn(
-            "grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4",
-            className
-          )}
-        >
-          {pizzaModel.pizzas.length !== 0 ? (
-            pizzaModel.pizzas.map((pizza) => (
-              <PizzaCard key={pizza._id} className={"mx-auto"} pizza={pizza} />
-            ))
-          ) : (
-            <h1>No Pizza Found</h1>
-          )}
-        </div>
+    <div className="flex flex-1 flex-col overflow-auto pb-5">
+      <div
+        className={cn(
+          "grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4",
+          className
+        )}
+      >
+        {pizzaModel.pizzas.length !== 0 ? (
+          pizzaModel.pizzas.map((pizza) => (
+            <PizzaCard key={pizza._id} className={"mx-auto"} pizza={pizza} />
+          ))
+        ) : (
+          <h1>No Pizza Found</h1>
+        )}
       </div>
     </div>
   );
