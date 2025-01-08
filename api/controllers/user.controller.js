@@ -44,7 +44,7 @@ const signinUser = async (req, res) => {
     res.cookie("auth_token", token, { httpOnly: true });
     res.status(200).send({ token });
   } catch (e) {
-    res.status(400).send({ error: "Incorrect Credentials" });
+    res.status(400).send({ message: "Incorrect Credentials" });
   }
 };
 
