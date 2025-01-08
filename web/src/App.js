@@ -23,6 +23,7 @@ const router = createBrowserRouter([
       { path: "*", element: <div> Not Found</div> }, // Relative path
     ],
   },
+  { path: "*", element: <div> Not Found</div> }, // Relative path
 ]);
 
 function App() {
