@@ -1,31 +1,19 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import toast from "react-hot-toast";
-import { useUser } from "../../Context/UserContext";
-import axios from "../../api/axios";
+import { observer } from "mobx-react-lite";
+import authModel from "../../models/AuthModel";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export const Login = observer(() => {
   const navigate = useNavigate();
-  const { setUser } = useUser();
 
   const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:3000/signin", {
-        email,
-        password,
-      });
-      if (response.status === 200) {
-        const user = response.data;
-        localStorage.setItem("user", JSON.stringify(user));
-        toast.success("Logged in successfully!");
-        setTimeout(() => navigate("/app/menu"), 1000);
-      }
-    } catch (error) {
-      console.error("Error logging in:", error);
-      toast.error("Failed to login. Please check your credentials.");
+    const response = await authModel.login();
+    if (response.status === 200) {
+      toast.success(response.message);
+      navigate('/app/menu')
+    } else {
+      toast.error(response.message);
     }
   };
 
@@ -46,37 +34,35 @@ const Login = () => {
               id="email"
               type="email"
               placeholder="jhon@example.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={authModel.email}
+              onChange={(e) => authModel.set("email", e.target.value)}
               required
             />
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
               <label htmlFor="password">Password</label>
-              <a
+              {/* <a
                 href="#"
                 className="ml-auto text-sm underline-offset-2 hover:underline"
               >
                 Forgot your password?
-              </a>
+              </a> */}
             </div>
             <input
               className="input input-bordered w-full max-w-xs"
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={authModel.password}
+              onChange={(e) => authModel.set("password", e.target.value)}
               required
             />
           </div>
-          <button type="submit" className="w-full btn btn-outline">
+          <button className="w-full btn btn-outline" onClick={handleLogin}>
             Login
           </button>
         </div>
       </div>
     </div>
   );
-};
-
-export default Login;
+});

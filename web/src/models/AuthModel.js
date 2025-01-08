@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from "mobx";
 import axios from "../api/axios";
+import { makePersistable } from "mobx-persist-store";
 
 class AuthModel {
   //formdata
@@ -8,6 +9,7 @@ class AuthModel {
   password = "";
   //metadata
   user = null;
+  token = null;
   loading = false;
   error = null;
 
@@ -19,14 +21,23 @@ class AuthModel {
       password: observable,
       // metadata
       user: observable,
+      token: observable,
       loading: observable,
       error: observable,
       // Methods
       set: action,
-      signin: action,
       signup: action,
+      login: action,
       logout: action,
     });
+    makePersistable(this, {
+      name: "AuthModel",
+      properties: ["token"],
+      expireIn: 3 * 24 * 60 * 60 * 1000, // Expiration in milliseconds (3 days)
+      storage: window.localStorage, // Use localStorage for persistence
+    }).catch((error) =>
+      console.error("Failed to initialize persistence for AuthModel:", error)
+    );
   }
 
   set(name, value) {
@@ -34,15 +45,25 @@ class AuthModel {
   }
 
   // Signin method
-  async signin(email, password) {
+  async login() {
     this.loading = true;
     this.error = null;
     try {
-      const response = await axios.post("/signin", { email, password });
-      this.user = response.data;
-      localStorage.setItem("auth_token", response.data.token); // Save token if needed
+      const response = await axios.post("/signin", {
+        email: this.email,
+        password: this.password,
+      });
+      this.token = response.data.token;
+      this.user = JSON.parse(atob(response.data.token.split(".")[1]));
+      return {
+        message: "Welcome! We are delighted to have you here.",
+        status: 200,
+      };
     } catch (error) {
-      this.error = error.response?.data?.message || "Signin failed";
+      return {
+        message: error.response.data.message,
+        status: error.response.status,
+      };
     } finally {
       this.loading = false;
     }
@@ -58,7 +79,10 @@ class AuthModel {
         email: this.email,
         password: this.password,
       });
-      return { message: response.data.message + ", Now You Can Login", status: 201 };
+      return {
+        message: response.data.message + ", Now You Can Login",
+        status: 201,
+      };
     } catch (error) {
       return {
         message: error.response.data.message,
@@ -72,7 +96,7 @@ class AuthModel {
   // Logout method
   logout() {
     this.user = null;
-    localStorage.removeItem("auth_token");
+    this.token = null;
   }
 }
 
