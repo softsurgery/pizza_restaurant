@@ -31,7 +31,7 @@ function App() {
     <div>
       <UserProvider>
         <RouterProvider router={router} />
-        <Toaster />
+        <Toaster toastOptions={{ className: "bg-slate-800 text-white" }} />
       </UserProvider>
     </div>
   );
