@@ -16,6 +16,7 @@ class ToppingModel {
       fetchToppings: action,
       addTopping: action,
       removeTopping: action,
+      randomizeToppings: action,
       clearToppings: action,
     });
   }
@@ -40,6 +41,20 @@ class ToppingModel {
     if (index >= 0 && index < this.toppings.length) {
       this.toppings.splice(index, 1);
     }
+  }
+
+  randomizeToppings() {
+    if (this.toppings.length === 0) return [];
+
+    const randomCount = Math.max(2, Math.floor(Math.random() * this.toppings.length) + 1);
+
+    const shuffled = [...this.toppings];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled.slice(0, randomCount);
   }
 
   clearToppings() {

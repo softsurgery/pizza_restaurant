@@ -3,24 +3,23 @@ import React from "react";
 import cartModel from "../../models/CartModel";
 import toast from "react-hot-toast";
 import Checkout from "../Checkout/Checkout";
+import { capitalize } from "../../lib/string.utils";
 
 const Basket = observer(() => {
   const [showCheckout, setShowCheckout] = React.useState(false);
 
   const handleRemoveFromCartClick = (pizza) => {
     cartModel.removePizza(pizza.id);
-    toast.success(`Pizza ${pizza.label} (${pizza.size}) Removed successfully`, {
-      className: "bg-slate-800 text-white",
-    });
+    toast.success(`Pizza ${pizza.label} (${pizza.size}) Removed successfully`);
   };
 
-  const handleButtonClick = () => {
-    setShowCheckout(true);
+  const handleCheckoutToggle = () => {
+    setShowCheckout(!showCheckout);
   };
 
   if (showCheckout) {
     // Render the Checkout component as the full-page content
-    return <Checkout />;
+    return <Checkout cancel={handleCheckoutToggle}/>;
   }
 
   return (
@@ -69,7 +68,10 @@ const Basket = observer(() => {
                     </div>
                   </td>
                   {/* Name */}
-                  <td>{p.label}</td>
+                  <td>
+                    {p.label}
+                    {" "}{p.flag === "custom" && <div>({p.toppings.map((t) => (<p className="inline mx-1 italic">{capitalize(t)}</p>))})</div>}
+                  </td>
                   {/* Size */}
                   <td>{p.size}</td>
                   {/* Price */}
@@ -120,7 +122,7 @@ const Basket = observer(() => {
         <p>
           Total: <strong>{cartModel.getTotalPrice.toFixed(2)} $</strong>
         </p>
-        <button className="btn btn-primary mt-3" onClick={handleButtonClick}>
+        <button className="btn btn-primary mt-3" onClick={handleCheckoutToggle}>
           Proceed to Checkout
         </button>
       </div>

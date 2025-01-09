@@ -21,27 +21,42 @@ export const OrderDetails = observer(
     }, [customOrderModel.toppings, customOrderModel.size, toppingModel.toppings]);
 
     const handleAddToCartClick = (size, quantity) => {
-      const index = cartModel.increaseCustomPizzaCounter();
+     if (customOrderModel.toppings.length !== 0) {const index = cartModel.increaseCustomPizzaCounter();
       cartModel.addPizza({
-        flag:"custom",
+        flag: "custom",
         id: index,
         label: `Custom Pizza ${index}`,
         image: "https://akleemans.github.io/random-pizza/assets/pizza.png",
         quantity,
         price: totalPrice,
         size,
+        toppings: customOrderModel.toppings,
       });
       toast.success(`Pizza Custom Pizza ${index} added successfully`, {
         className: "bg-slate-800 text-white",
       });
-      customOrderModel.clearToppings();
+      customOrderModel.clearToppings();}
+      else {
+        toast.error("Please select at least one topping");
+      }
     };
 
+    const randomCombo = () => {
+      customOrderModel.clearToppings();
+      const randomToppings = toppingModel.randomizeToppings();
+      randomToppings.forEach((t) => customOrderModel.addTopping(t.name));
+    }
+
     return (
-      <section className={cn("flex gap-5 justify-center mt-5", className)}>
+      <section className={cn("flex flex-col gap-5 items-center mt-5", className)}>
         <div>
           <button className="btn btn-primary btn-outline text-lg" onClick={() => { handleAddToCartClick(customOrderModel.size, 1) }}>
             🍕 Order ({`$${totalPrice.toFixed(2)}`})
+          </button>
+        </div>
+        <div>
+          <button className="btn btn-primary btn-outline text-lg" onClick={randomCombo}>
+            🍀 I feel lucky
           </button>
         </div>
       </section>

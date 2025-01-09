@@ -4,6 +4,7 @@ import cartModel from "../../models/CartModel";
 import { observer } from "mobx-react-lite";
 
 export const PizzaCard = observer(({ className, pizza }) =>{
+
   const handleAddToCartClick = (size, quantity) => {
     cartModel.addPizza({
       id: pizza._id + size,
@@ -15,9 +16,7 @@ export const PizzaCard = observer(({ className, pizza }) =>{
       quantity,
       size,
     });
-    toast.success(`Pizza ${pizza.name} added successfully`, {
-      className: "bg-slate-800 text-white",
-    });
+    toast.success(`Pizza ${pizza.name} added successfully`);
   };
 
   return (

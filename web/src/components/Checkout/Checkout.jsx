@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Checkout = () => {
+const Checkout = ({cancel}) => {
   const [formData, setFormData] = useState({
     name: "",
     cardNumber: "",
@@ -101,6 +101,12 @@ const Checkout = () => {
           className="btn btn-primary text-white w-full mt-4"
         >
           Complete Payment
+        </button>
+        <button
+          className="btn btn-error btn-outline text-white w-full mt-4"
+          onClick={cancel}
+        >
+          Cancel Checkout
         </button>
       </div>
     </div>
