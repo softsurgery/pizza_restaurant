@@ -6,6 +6,7 @@ import Basket from "./components/Basket/Basket";
 import { Toaster } from "react-hot-toast";
 import { Account } from "./components/Account/Account";
 import Menu from "./pages/Menu";
+import FakePaymentLoader from "./components/Checkout/Loader";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       { path: "custom-order", element: <CustomOrder /> }, // Relative path
       { path: "basket", element: <Basket /> }, // Relative path
       { path: "account", element: <Account /> }, // Relative path
+      { path: "payment-is-confirming", element: <FakePaymentLoader /> }, // Relative path
       { path: "*", element: <div> Not Found</div> }, // Relative path
     ],
   },

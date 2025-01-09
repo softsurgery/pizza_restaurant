@@ -1,13 +1,13 @@
 export const sizeOptions = {
-    small: {
+    Small: {
       basePrice: 800,
       inches: 9.5,
     },
-    medium: {
+    Medium: {
       basePrice: 1000,
       inches: 11.5,
     },
-    large: {
+    Large: {
       basePrice: 1200,
       inches: 13.5,
     },

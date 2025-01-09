@@ -19,7 +19,7 @@ const Basket = observer(() => {
 
   if (showCheckout) {
     // Render the Checkout component as the full-page content
-    return <Checkout cancel={handleCheckoutToggle}/>;
+    return <Checkout cancel={handleCheckoutToggle} />;
   }
 
   return (
@@ -33,7 +33,8 @@ const Basket = observer(() => {
         </p>
       </div>
       <div className="flex flex-1 flex-col overflow-auto">
-        <table className="table">
+        {cartModel.pizzas.length === 0 && <div className="prose text-center max-w-full mt-5"><h1>No Pizzas were selected ❌</h1></div>}
+        {cartModel.pizzas.length !== 0 && <table className="table">
           {/* head */}
           <thead className="sticky top-0 bg-slate-800 z-10 rounded-xl">
             <tr>
@@ -114,7 +115,7 @@ const Basket = observer(() => {
               );
             })}
           </tbody>
-        </table>
+        </table>}
       </div>
 
       {/* Total Section */}
@@ -122,9 +123,15 @@ const Basket = observer(() => {
         <p>
           Total: <strong>{cartModel.getTotalPrice.toFixed(2)} $</strong>
         </p>
+        <div className="flex justify-center gap-5">
         <button className="btn btn-primary mt-3" onClick={handleCheckoutToggle}>
           Proceed to Checkout
         </button>
+        <button className="btn btn-primary btn-outline mt-3" onClick={() => cartModel.clearPizzas()}>
+          Clear Cart
+        </button>
+        </div>
+    
       </div>
     </div>
   );
