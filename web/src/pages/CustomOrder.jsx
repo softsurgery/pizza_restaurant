@@ -3,8 +3,8 @@ import { cn } from "../lib/tailwind";
 
 export default function CustomOrder({ className }) {
   return (
-    <div>
-      <div className="prose border-b max-w-full mb-5 ">
+    <div className={cn("flex flex-col flex-1 overflow-hidden", className)}>
+      <div className="prose border-b max-w-full">
         <h1>🔥 Custom Order</h1>
         <p className="mb-5">
           Indulge in our hand-crafted pizzas, made with the freshest ingredients
@@ -14,13 +14,7 @@ export default function CustomOrder({ className }) {
         </p>
       </div>
 
-      <div
-        className={cn(
-          className
-        )}
-      >
-        <PizzaBuilder />
-      </div>
+      <PizzaBuilder className={"flex-1 overflow-auto p-4"} />
     </div>
   );
 }

@@ -33,7 +33,7 @@ const Basket = observer(() => {
         </p>
       </div>
       <div className="flex flex-1 flex-col overflow-auto">
-        {cartModel.pizzas.length === 0 && <div className="prose text-center max-w-full mt-5"><h1>No Pizzas were selected ❌</h1></div>}
+        {cartModel.pizzas.length === 0 && <div className="prose text-center max-w-full mt-5"><h2>No Pizzas were selected 😢</h2></div>}
         {cartModel.pizzas.length !== 0 && <table className="table">
           {/* head */}
           <thead className="sticky top-0 bg-slate-800 z-10 rounded-xl">

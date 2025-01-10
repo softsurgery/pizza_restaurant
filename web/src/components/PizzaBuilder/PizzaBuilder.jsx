@@ -4,21 +4,20 @@ import { toppingOptions } from "./constants/topping-options";
 import { sizeOptions } from "./constants/size-options";
 import { OrderDetails } from "./OrderDetails";
 import { PizzaOptions } from "./PizzaOptions";
+import { cn } from "../../lib/tailwind";
 
-
-export const PizzaBuilder = () => {
+export const PizzaBuilder = ({ className }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-5">
-      <div className="col-span-2 w-full flex flex-col gap-2">
-        <div className="sm:px-6 md:px-12 lg:px-24">
-          <Pizza toppingOptions={toppingOptions} className={"mt-4"} />
+    <div className={cn("flex flex-col xl:flex-row items-center xl:items-start", className)}>
+      <div className="xl:w-1/2 flex flex-col gap-2 mx-10">
+        <div className="mx-10">
+          <Pizza toppingOptions={toppingOptions} />
         </div>
         <OrderDetails
           sizeOptions={sizeOptions}
         />
       </div>
       <PizzaOptions
-        className={"col-span-3"}
         sizeOptions={sizeOptions}
         toppingOptions={toppingOptions}
       />

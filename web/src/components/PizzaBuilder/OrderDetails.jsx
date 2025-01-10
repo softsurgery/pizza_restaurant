@@ -48,14 +48,14 @@ export const OrderDetails = observer(
     }
 
     return (
-      <section className={cn("flex flex-col gap-5 items-center mt-5", className)}>
+      <section className={cn("flex flex-row gap-5 items-center justify-center mt-5", className)}>
         <div>
-          <button className="btn btn-primary btn-outline text-lg" onClick={() => { handleAddToCartClick(customOrderModel.size, 1) }}>
+          <button className="btn btn-primary btn-outline text-sm xl:text-md" onClick={() => { handleAddToCartClick(customOrderModel.size, 1) }}>
             🍕 Order ({`$${totalPrice.toFixed(2)}`})
           </button>
         </div>
         <div>
-          <button className="btn btn-primary btn-outline text-lg" onClick={randomCombo}>
+          <button className="btn btn-primary btn-outline text-sm xl:text-md" onClick={randomCombo}>
             🍀 I feel lucky
           </button>
         </div>
