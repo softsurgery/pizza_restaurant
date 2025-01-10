@@ -4,9 +4,9 @@ import CustomOrder from "./pages/CustomOrder";
 import { Auth } from "./pages/Auth";
 import Basket from "./components/Basket/Basket";
 import { Toaster } from "react-hot-toast";
-import { Account } from "./components/Account/Account";
 import Menu from "./pages/Menu";
 import FakePaymentLoader from "./components/Checkout/Loader";
+import Account from "./pages/Account";
 
 const router = createBrowserRouter([
   {

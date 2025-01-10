@@ -4,7 +4,7 @@ import axios from "../../api/axios";
 import { observer } from "mobx-react-lite";
 import authModel from "../../models/AuthModel";
 
-export const Account = observer(() => {
+export const AccountDetails = observer(() => {
   const [user, setUser] = React.useState({
     username: "username",
     email: "email",
@@ -41,13 +41,13 @@ export const Account = observer(() => {
 
   return (
     <div className="container flex flex-col overflow-auto p-6">
-      <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex flex-col xl:flex-row gap-8">
+
         {/* Personal details */}
-        <div className="flex flex-col items-center justify-center shadow rounded-lg p-6 lg:w-1/4 bg-gray-800 h-fit">
-          <h2 className="mt-4 text-lg font-bold text-center p-3">
-            Your Account
-          </h2>
-          <div className="avatar">
+        <div className="flex flex-col items-center justify-center shadow rounded-lg p-6 xl:w-1/4 bg-gray-800 h-fit">
+          <h2 className="text-2xl font-bold my-2">Account</h2>
+
+          <div className="avatar mt-4">
             <div className="w-24 rounded-full">
               <img
                 src="https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2484"
@@ -61,26 +61,17 @@ export const Account = observer(() => {
           <h2 className="mt-4 text-lg font-bold text-center">
             {user.email || "john@gmail.com"}
           </h2>
-          <button className="mt-2 btn btn-outline btn-primary">
-            Share profile link
-          </button>
-          <button className="btn btn-link mt-2">
-            Update profile visibility
-          </button>
           <button className="btn btn-link mt-2" onClick={() => authModel.logout()}>
             Sign-out
           </button>
         </div>
 
         {/* Personal information */}
-        <div className="shadow rounded-lg overflow-hidden bg-gray-800 w-full lg:w-3/5">
+        <div className="shadow rounded-lg overflow-hidden bg-gray-800 w-full lg:w-3/4">
           <div className="flex justify-center items-center">
-            <div className="w-full max-w-3xl shadow-md rounded-lg p-8">
+            <div className="w-full shadow-md rounded-lg p-8">
               <h2 className="text-2xl font-bold mb-6">Personal information</h2>
-              <form
-                className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-                onSubmit={handleSubmit}
-              >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 px-10">
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">First name</span>
@@ -124,13 +115,12 @@ export const Account = observer(() => {
                 </div>
                 <div className="form-control">
                   <label className="label">
-                    <span className="label-text">Additional Phone Number</span>
+                    <span className="label-text">E-mail</span>
                   </label>
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      name="additionalPhoneNumber"
-                      placeholder="Additional Phone Number"
+                      placeholder="E-mail"
                       className="input input-bordered flex-1"
                       value={formData.additionalPhoneNumber}
                       onChange={handleChange}
@@ -181,12 +171,16 @@ export const Account = observer(() => {
                     <option>Sousse</option>
                   </select>
                 </div>
-                <div className="lg:col-span-2 flex justify-end">
-                  <button className="btn btn-primary" type="submit">
-                    Save
-                  </button>
-                </div>
-              </form>
+
+              </div>
+              <div className="flex gap-2 justify-end mt-10">
+                <button className="btn btn-primary" type="submit">
+                  Save
+                </button>
+                <button className="btn btn-primary btn-outline" type="submit">
+                  Reset
+                </button>
+              </div>
             </div>
           </div>
         </div>
