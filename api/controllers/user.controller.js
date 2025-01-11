@@ -84,9 +84,31 @@ const auth = async (req, res, next) => {
   }
 };
 
+const updateEmail = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const email = req.body.email;
+
+    const user = await User.findOneAndUpdate(
+      { _id : userId },
+      { email },
+      { new: true, runValidators: true }
+    );
+
+    if (!user) {
+      return res.status(404).send({ error: 'User not found' });
+    }
+
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+}
+
 module.exports = {
   signupUser,
   signinUser,
   signoutUser,
   auth,
+  updateEmail,
 };

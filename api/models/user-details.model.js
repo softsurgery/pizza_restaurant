@@ -36,13 +36,13 @@ const userDetailsSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    // user: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true
-    // }
+    userId: {
+        type: String,
+        required: true,
+        trim: true
+    }
 }, {
-    timestamps: true // Adds createdAt and updatedAt fields
+    timestamps: true
 });
 
 const UserDetails = mongoose.model('UserDetails', userDetailsSchema);

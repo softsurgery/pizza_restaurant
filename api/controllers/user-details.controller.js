@@ -5,22 +5,21 @@ const User = require('../models/user.model')
 
 const createUserDetails = async (req, res) => {
     try {
-        const { firstName, lastName, phoneNumber, additionalPhoneNumber, address, region, city} = req.body;
+        const { firstName, lastName, phoneNumber, address, region, city, userId } = req.body;
 
-        // const user = await User.findById(userId);
-        // if (!user) {
-        //     return res.status(404).send({ error: 'User not found' });
-        // }
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).send({ error: 'User not found' });
+        }
 
         const userDetails = new UserDetails({
             firstName,
             lastName,
             phoneNumber,
-            additionalPhoneNumber,
             address,
             region,
             city,
-            // user: userId
+            userId
         });
 
         await userDetails.save();
@@ -34,7 +33,7 @@ const getUserDetailsByUserId = async (req, res) => {
     try {
         const { userId } = req.params;
 
-        const userDetails = await UserDetails.findOne({ user: userId }).populate('user');
+        const userDetails = await UserDetails.findOne({ userId });
         if (!userDetails) {
             return res.status(404).send({ error: 'User details not found' });
         }
@@ -51,7 +50,7 @@ const updateUserDetails = async (req, res) => {
         const updates = req.body;
 
         const userDetails = await UserDetails.findOneAndUpdate(
-            { user: userId },
+            { userId },
             updates,
             { new: true, runValidators: true }
         );
