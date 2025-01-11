@@ -32,7 +32,7 @@ class AuthModel {
     });
     makePersistable(this, {
       name: "AuthModel",
-      properties: ["user", "token"],
+      properties: ["user", "token", "email"],
       expireIn: 3 * 24 * 60 * 60 * 1000, // Expiration in milliseconds (3 days)
       storage: window.localStorage, // Use localStorage for persistence
     }).catch((error) =>
@@ -55,6 +55,8 @@ class AuthModel {
       });
       this.token = response.data.token;
       this.user = JSON.parse(atob(response.data.token.split(".")[1]));
+      this.email = this.user.email;
+      this.username = this.user.username;
       return {
         message: "Welcome! We are delighted to have you here.",
         status: 200,
@@ -93,9 +95,30 @@ class AuthModel {
     }
   }
 
+  async updateEmail() {
+    this.loading = true;
+    this.error = null;
+
+    try {
+      const response = await axios.put(`/update-email/${this.user._id}`, { email: this.email });
+      this.user = { ...this.user, email: response.data.email, username: response.data.username }
+      return {
+        message: "Email updated successfully",
+        status: 200,
+      };
+    } catch (error) {
+      return {
+        message: error.response.data.message,
+        status: error.response.status,
+      };
+    } finally {
+      this.loading = false;
+    }
+  }
+
   logout() {
-    this.user = null;
     this.token = null;
+    this.user = {};
   }
 }
 
